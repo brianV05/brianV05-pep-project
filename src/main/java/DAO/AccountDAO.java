@@ -35,10 +35,6 @@ public class AccountDAO {
                 account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
             }
 
-
-
-
-
         } catch (SQLException e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -46,7 +42,7 @@ public class AccountDAO {
         return account;
 
     }
-    //return account;
+   
 
 
     

@@ -1,5 +1,9 @@
 package Controller;
 
+//the controller will require the use of the Service layer and the Model layer
+import Model.Account;
+import Service.ServiceAccount;
+
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -14,6 +18,10 @@ public class SocialMediaController {
      * suite must receive a Javalin object from this method.
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
+
+
+
+
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         //app.get("example-endpoint", this::exampleHandler);
