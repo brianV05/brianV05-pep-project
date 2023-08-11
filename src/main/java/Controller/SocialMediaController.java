@@ -18,13 +18,13 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         //app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewRegisterHandler);
-        app.post("/login", this::postUserLoginHandler);
-        app.post("/messages", this::postNewMessagesHandler);
-        app.get("/messages", this::getAllMessagesHandler);
-        app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
-        app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
-        app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
-        app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
+        //app.post("/login", this::postUserLoginHandler);
+        //app.post("/messages", this::postNewMessagesHandler);
+        //app.get("/messages", this::getAllMessagesHandler);
+       // app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
+        //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
+        //app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
+        //app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
 
         return app;
     }
@@ -41,7 +41,7 @@ public class SocialMediaController {
     private void postNewRegisterHandler(Context context){
 
     }
-
+/* 
     private void postUserLoginHandler(Context context){
         
     }
@@ -70,7 +70,7 @@ public class SocialMediaController {
         
     }
 
-
+*/
 
 
 }
