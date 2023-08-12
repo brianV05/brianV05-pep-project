@@ -3,7 +3,6 @@ package DAO;
 //adding Service class and connection to database to AccountDAO class
 //DAO class will need the information from service and util
 import Model.Account;
-import Controller.SocialMediaController;
 import Util.ConnectionUtil;
 
 
@@ -44,9 +43,27 @@ public class AccountDAO {
         return null;
 
     }
-   
 
 
+    public boolean accountExist(String userName){
+        String sql = "SELECT * FROM account WHERE username = ?";
+        Connection conn = ConnectionUtil.getConnection();
+        try {
+          
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,userName);
+
+            try(ResultSet resultSet = ps.executeQuery()){
+                if(resultSet.next()){
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     
-    
+
 }

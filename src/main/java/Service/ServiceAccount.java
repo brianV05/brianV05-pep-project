@@ -28,15 +28,28 @@ public class ServiceAccount {
         this.accountDAO = accountDAO;
     }
 
+    //finish writing in the doa class
+    public boolean accountExist(String userName){
+        return accountDAO.accountExist(userName);
+
+    }
+
+
+
+
 
     // This method is for processing a new User registration
     public Account createNewUser(Account account){
             
         //we are checking if the username is NOT blank, the password is AT LEAST 4 charachters long, and making sure account doesn't exist
-        if(account.getUsername().length() != 0 || account.getPassword().length() < 4 || accountDAO.InsertnewUser(account) != null ){
-            return  accountDAO.InsertnewUser(account); //look back at DAO class for the name of the method you would be using 
+        if(account.getUsername() == null || account.getPassword().length() < 4 || accountExist(account.getUsername())){
+            return null;
         }
-        return null;
+        else{
+            return accountDAO.InsertnewUser(account); //look back at DAO class for the name of the method you would be using 
+
+        }
+        
         
         
     }

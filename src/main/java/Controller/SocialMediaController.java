@@ -54,32 +54,41 @@ public class SocialMediaController {
     */
 
     private void postNewRegisterHandler(Context context) throws JsonProcessingException{
-        ObjectMapper om = new ObjectMapper();
-        Account acc = om.readValue(context.body(), Account.class);
-        Account addAcc = serviceAccount.createNewUser(acc);
-
- /* 
-        if (acc.getUsername().isBlank() || acc.getPassword() == null || acc.getPassword().length() >=4){
-            context.status(400).json("");
-            return;
-        }
-        if(addAcc != null){
-            context.status(200).json(addAcc);
-        }
-        else{
-            context.status(400).json("");
-        }
-*/
-
         
-        if(addAcc == null){
-            context.status(400);
+       // ObjectMapper om = new ObjectMapper();
+        Account newAcc = context.bodyAsClass(Account.class);  //username and password from user input
+       // Account acc = om.readValue(context.body(), Account.class);
+
+
+  
+        Account addAcc = serviceAccount.createNewUser(newAcc);
+
+             
+        if(addAcc != null){
+        //context.json(om.writeValueAsString(addAcc));
+        context.status(200);
+        context.json(newAcc);
+        }else{
+           context.status(400);  
+        }
+            
+       
+
+
+       
+
+
+ /*
+        
+        if(addAcc != null){
+            context.json(om.writeValueAsString(addAcc));
+            context.status(200);
         }
         else{
             context.json(addAcc);
             context.status(200);
         }
-        
+        */
         
 
         
