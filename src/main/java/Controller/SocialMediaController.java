@@ -3,6 +3,8 @@ package Controller;
 //the controller will require the use of the Service layer and the Model layer
 import Model.Account;
 import Service.ServiceAccount;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -18,6 +20,13 @@ public class SocialMediaController {
      * suite must receive a Javalin object from this method.
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
+
+
+     //initialize serviceAccount
+
+     static ServiceAccount sa = new ServiceAccount();
+
+
 
 
 
@@ -46,7 +55,24 @@ public class SocialMediaController {
     }
     */
 
-    private void postNewRegisterHandler(Context context){
+    private void postNewRegisterHandler(Context context) throws JsonProcessingException{
+
+        //converting JSON to java language
+        ObjectMapper om = new ObjectMapper();
+        Account acc = om.readValue(context.body(), Account.class);
+        //calling createNewUser to from Service layer to add layer
+        Account addAcc = sa.createNewUser(acc);
+
+        if(addAcc != null){
+            //convert back to client language(json)
+            context.json(om.writeValueAsString(addAcc));
+        }
+        else{
+            context.status(400);
+        }
+
+
+
 
     }
 /* 

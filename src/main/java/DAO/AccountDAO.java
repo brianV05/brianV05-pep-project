@@ -7,8 +7,8 @@ import Util.ConnectionUtil;
 
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 
 public class AccountDAO {
@@ -36,7 +36,6 @@ public class AccountDAO {
             }
 
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return account;
