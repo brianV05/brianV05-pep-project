@@ -4,7 +4,7 @@ package Controller;
 import Model.Account;
 import Service.ServiceAccount;
 import DAO.AccountDAO;
-import java.sql.*;
+//import java.sql.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -61,17 +61,18 @@ public class SocialMediaController {
         //calling createNewUser to from Service layer to add layer
         Account addAcc = serviceAccount.createNewUser(acc);
 
+        System.out.println(addAcc);
+        System.out.println("before if/else statement");
+
         if(addAcc != null){
             //convert back to client language(json)
             context.json(addAcc);
-            context.status(200);
-           
         }
         else{
             //not successful
+            System.out.println("in else statement");
             context.status(400);
         }
-
     }
 
 /* 
