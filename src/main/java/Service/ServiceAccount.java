@@ -42,7 +42,7 @@ public class ServiceAccount {
     public Account createNewUser(Account account){
             
         //we are checking if the username is NOT blank, the password is AT LEAST 4 charachters long, and making sure account doesn't exist
-        if(account.getUsername() == null || account.getPassword().length() < 4 || accountExist(account.getUsername())){
+        if(account.getUsername().isEmpty() || account.getPassword().length() < 4 || accountExist(account.getUsername())){
             return null;
         }
         else{

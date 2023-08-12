@@ -6,7 +6,7 @@ import Service.ServiceAccount;
 import DAO.AccountDAO;
 //import java.sql.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -56,11 +56,9 @@ public class SocialMediaController {
     private void postNewRegisterHandler(Context context) throws JsonProcessingException{
         
        // ObjectMapper om = new ObjectMapper();
-        Account newAcc = context.bodyAsClass(Account.class);  //username and password from user input
        // Account acc = om.readValue(context.body(), Account.class);
+       Account newAcc = context.bodyAsClass(Account.class);  //username and password from user input
 
-
-  
         Account addAcc = serviceAccount.createNewUser(newAcc);
 
              
@@ -73,6 +71,7 @@ public class SocialMediaController {
         }
             
        
+
 
 
        
@@ -88,6 +87,20 @@ public class SocialMediaController {
             context.json(addAcc);
             context.status(200);
         }
+
+        int rowsAffected = preparedStatement.executeUpdate();
+            if(rowsAffected > 0){
+                try(ResultSet generatedKeys = preparedStatement.getGeneratedKeys()){
+                    if(generatedKeys.next()){
+                        int account_id = generatedKeys.getInt(1);
+                        account.setAccount_id(account_id);
+                        return account;
+                    }
+                }
+            }
+
+
+
         */
         
 
