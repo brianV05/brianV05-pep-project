@@ -3,6 +3,7 @@ package DAO;
 //adding Service class and connection to database to AccountDAO class
 //DAO class will need the information from service and util
 import Model.Account;
+import Controller.SocialMediaController;
 import Util.ConnectionUtil;
 
 
