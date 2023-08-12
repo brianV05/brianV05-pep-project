@@ -3,6 +3,8 @@ package Controller;
 //the controller will require the use of the Service layer and the Model layer
 import Model.Account;
 import Service.ServiceAccount;
+import DAO.AccountDAO;
+import java.sql.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,13 +25,8 @@ public class SocialMediaController {
 
 
      //initialize serviceAccount
-
-     static ServiceAccount sa = new ServiceAccount();
-
-
-
-
-
+     AccountDAO accountDAO = new AccountDAO();
+     ServiceAccount serviceAccount = new ServiceAccount(accountDAO);
 
     public Javalin startAPI() {
         Javalin app = Javalin.create();
@@ -42,6 +39,7 @@ public class SocialMediaController {
         //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
         //app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
         //app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
+
 
         return app;
     }
@@ -61,20 +59,21 @@ public class SocialMediaController {
         ObjectMapper om = new ObjectMapper();
         Account acc = om.readValue(context.body(), Account.class);
         //calling createNewUser to from Service layer to add layer
-        Account addAcc = sa.createNewUser(acc);
+        Account addAcc = serviceAccount.createNewUser(acc);
 
         if(addAcc != null){
             //convert back to client language(json)
-            context.json(om.writeValueAsString(addAcc));
+            context.json(addAcc);
+            context.status(200);
+           
         }
         else{
+            //not successful
             context.status(400);
         }
 
-
-
-
     }
+
 /* 
     private void postUserLoginHandler(Context context){
         

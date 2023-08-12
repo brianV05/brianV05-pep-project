@@ -18,7 +18,7 @@ public class AccountDAO {
         Connection conn = ConnectionUtil.getConnection();
         try {
             //Create a Statement
-            String sql = "INSERT INTO Account (username,  password) VALUES (? , ?)";
+            String sql = "INSERT INTO Account (username, password) VALUES (? , ?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, account.getUsername());
@@ -32,13 +32,15 @@ public class AccountDAO {
 
             //close connection
             while(rs.next()){
-                account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                //account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                int generated_account_id = (int) rs.getLong(1);
+                return new Account(generated_account_id, account.getUsername(), account.getPassword());
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return account;
+        return null;
 
     }
    
