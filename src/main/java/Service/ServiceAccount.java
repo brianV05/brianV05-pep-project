@@ -31,8 +31,9 @@ public class ServiceAccount {
 
     // This method is for processing a new User registration
     public Account createNewUser(Account account){
+        
         //we are checking if the username is NOT blank, the password is AT LEAST 4 charachters long, and making sure account doesn't exist
-        if(account.getUsername().length() != 0 || account.getPassword().length() < 4 || accountDAO.InsertnewUser(account) != null  ){
+        if(account.getUsername().length() != 0 || account.getPassword().length() < 4 || accountDAO.InsertnewUser(account) != null ){
             return this.accountDAO.InsertnewUser(account); //look back at DAO class for the name of the method you would be using ;
         }
         return null;
