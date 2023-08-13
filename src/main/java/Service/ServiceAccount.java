@@ -53,7 +53,7 @@ public class ServiceAccount {
     
 
     public Account getAccount(Account account){
-        if(accountDAO.verifyAccount(account) != null ) {
+        if(accountDAO.verifyAccount(account) != null) {
             return accountDAO.verifyAccount(account);
         }else{
             return null;
