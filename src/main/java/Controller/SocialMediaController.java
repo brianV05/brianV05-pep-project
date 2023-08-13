@@ -55,17 +55,18 @@ public class SocialMediaController {
 
     private void postNewRegisterHandler(Context context) throws JsonProcessingException{
         
-       // ObjectMapper om = new ObjectMapper();
-       // Account acc = om.readValue(context.body(), Account.class);
-       Account newAcc = context.bodyAsClass(Account.class);  //username and password from user input
+        //ObjectMapper om = new ObjectMapper();
+        //Account acc = om.readValue(context.body(), Account.class);
 
-        Account addAcc = serviceAccount.createNewUser(newAcc);
+        // using Javalin, use this way
+        //username and password from user input / website
+        Account newAcc = context.bodyAsClass(Account.class);  
 
-             
+        //query already created to be passed to the database
+        Account addAcc = serviceAccount.createNewUser(newAcc);     
         if(addAcc != null){
-        //context.json(om.writeValueAsString(addAcc));
-        context.status(200);
-        context.json(newAcc);
+            context.status(200);
+            context.json(newAcc);
         }else{
            context.status(400);  
         }
