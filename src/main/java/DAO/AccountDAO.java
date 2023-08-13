@@ -40,18 +40,31 @@ public class AccountDAO {
             ps.setString(1, account.getUsername());
             ps.setString(2,account.getPassword());
 
+            int rowsAffected = ps.executeUpdate();
+            if(rowsAffected > 0){
+                try(ResultSet generatedKeys = ps.getGeneratedKeys()){
+                    if(generatedKeys.next()){
+                        int account_id = generatedKeys.getInt(1);
+                        account.setAccount_id(account_id);
+                        return account;
+                    }
+                }
+            }
+
+
             //excute query
-            ps.executeUpdate();
+            //ps.executeUpdate();
 
             //process result
-            ResultSet rs = ps.getGeneratedKeys();
+            //ResultSet rs = ps.getGeneratedKeys();
 
             //close connection
-            if(rs.next()){
-                return new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+            //if(rs.next()){
+                //return new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
                 //int generated_account_id = (int) rs.getLong(1);
                 //return new Account(generated_account_id, account.getUsername(), account.getPassword());
-            }
+            //}
+            
 
         } catch (SQLException e) {
             e.printStackTrace();

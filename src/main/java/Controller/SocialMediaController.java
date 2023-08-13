@@ -69,43 +69,7 @@ public class SocialMediaController {
             context.json(newAcc);
         }else{
            context.status(400);  
-        }
-            
-       
-
-
-
-       
-
-
- /*
-        
-        if(addAcc != null){
-            context.json(om.writeValueAsString(addAcc));
-            context.status(200);
-        }
-        else{
-            context.json(addAcc);
-            context.status(200);
-        }
-
-        int rowsAffected = preparedStatement.executeUpdate();
-            if(rowsAffected > 0){
-                try(ResultSet generatedKeys = preparedStatement.getGeneratedKeys()){
-                    if(generatedKeys.next()){
-                        int account_id = generatedKeys.getInt(1);
-                        account.setAccount_id(account_id);
-                        return account;
-                    }
-                }
-            }
-
-
-
-        */
-        
-
-        
+        }    
     }
 
 
