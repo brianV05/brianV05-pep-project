@@ -9,6 +9,7 @@ import DAO.AccountDAO;
 
 
 public class ServiceAccount {
+
     //Create the AccountDAO
     public AccountDAO accountDAO;
 
@@ -17,7 +18,6 @@ public class ServiceAccount {
     public ServiceAccount(){
         accountDAO = new AccountDAO();
     }
-
      /**
      * Constructor for a ServiceAccount when a AccountDAO is provided.
      * This is used for when a mock AccountDAO that exhibits mock behavior is used in the test cases.
@@ -30,13 +30,11 @@ public class ServiceAccount {
 
 
 
-
     //finish writing in the doa class\
     //we need to check if the new account already exist or not 
     public boolean accountExist(String userName){
         return accountDAO.accountExist(userName);
     }
-
 
     // This method is for processing a new User registration
     public Account createNewUser(Account account){
@@ -47,13 +45,20 @@ public class ServiceAccount {
         else{
             //look back at DAO class for the name of the method you would be using
             //create the new Account
+            //InsertnewUser comes from DAO class
             return accountDAO.InsertnewUser(account); 
 
-        }
-        
-        
-        
+        } 
     }
+
+    public Account getAccount(Account account){
+        if(accountDAO.verifyAccount(account) != null){
+            return accountDAO.verifyAccount(account);
+        }
+        //return accountDAO.verifyAccount(account);
+    }
+
+
     
 
  

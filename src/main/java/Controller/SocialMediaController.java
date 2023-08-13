@@ -3,10 +3,11 @@ package Controller;
 //the controller will require the use of the Service layer and the Model layer
 import Model.Account;
 import Service.ServiceAccount;
-import DAO.AccountDAO;
-//import java.sql.*;
+//import DAO.AccountDAO;
+
+import java.sql.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
-//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -23,10 +24,9 @@ public class SocialMediaController {
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
 
-
      //initialize serviceAccount
-     AccountDAO accountDAO = new AccountDAO();
-     ServiceAccount serviceAccount = new ServiceAccount(accountDAO);
+     //AccountDAO accountDAO = new AccountDAO();
+     ServiceAccount serviceAccount = new ServiceAccount();
 
     public Javalin startAPI() {
         Javalin app = Javalin.create();
@@ -47,39 +47,52 @@ public class SocialMediaController {
     /**
      * This is an example handler for an example endpoint.
      * @param context The Javalin Context object manages information about both the HTTP request and response.
-    
     private void exampleHandler(Context context) {
         context.json("sample text");
     }
     */
 
+// Our API should be able to process new User registrations.
     private void postNewRegisterHandler(Context context) throws JsonProcessingException{
-        
         //ObjectMapper om = new ObjectMapper();
         //Account acc = om.readValue(context.body(), Account.class);
 
         // using Javalin, use this way
         //username and password from user input / website
-        Account newAcc = context.bodyAsClass(Account.class);  
+        Account account = context.bodyAsClass(Account.class);  
 
         //query already created to be passed to the database
-        Account addAcc = serviceAccount.createNewUser(newAcc);     
+        //createNewUser is coming from the service class
+        Account addAcc = serviceAccount.createNewUser(account);    
+        
         if(addAcc != null){
             context.status(200);
-            context.json(newAcc);
+            context.json(account);
         }else{
            context.status(400);  
         }    
     }
 
+//Our API should be able to process User logins.
+    private void postUserLoginHandler(Context context){
+
+        Account account = context.bodyAsClass(Account.class);
+
+//getAccount need to implement a method in the service 
+        Account getAcc = serviceAccount.getAccount(account);
+
+        if(getAcc != null){
+            context.status(200);
+            context.json(account);
+        }else{
+            context.status(401);
+        }
+        
+    }
 
 
 
 /* 
-    private void postUserLoginHandler(Context context){
-        
-    }
-
     private void postNewMessagesHandler(Context context){
         
     }

@@ -6,8 +6,8 @@ import Model.Account;
 import Util.ConnectionUtil;
 
 import java.sql.*;
-//import java.util.ArrayList;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AccountDAO {
@@ -22,8 +22,6 @@ public class AccountDAO {
     }
     */
 
-
-
     public Account InsertnewUser(Account account){
         //1. Get a connection  
         Connection conn = ConnectionUtil.getConnection();
@@ -34,12 +32,10 @@ public class AccountDAO {
         //preparing the sql query into the database
         try(PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
-            // real connection to the database
-            //PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
             ps.setString(1, account.getUsername());
             ps.setString(2,account.getPassword());
 
+            //excute query
             int rowsAffected = ps.executeUpdate();
             if(rowsAffected > 0){
                 try(ResultSet generatedKeys = ps.getGeneratedKeys()){
@@ -50,8 +46,6 @@ public class AccountDAO {
                     }
                 }
             }
-
-
             //excute query
             //ps.executeUpdate();
 
@@ -64,16 +58,12 @@ public class AccountDAO {
                 //int generated_account_id = (int) rs.getLong(1);
                 //return new Account(generated_account_id, account.getUsername(), account.getPassword());
             //}
-            
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
     }
-
-// This will relate to the method 'accountExist' in the ServiceAccount java file
+// This will relate to the method 'accountExist' in the ServiceAccount java file (checking if account already exist)
     public boolean accountExist(String userName){
         Connection conn = ConnectionUtil.getConnection();
 
@@ -97,6 +87,46 @@ public class AccountDAO {
         }
         return false;
     }
+
+
+
+    public Account verifyAccount(Account account){
+        //make a connection
+        Connection conn = ConnectionUtil.getConnection();
+
+        //create statement 
+        String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1,account.getUsername());
+            ps.setString(2,account.getPassword());
+
+        //execute query
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            return new Account(rs.getInt("account_id"),rs.getString("username"), rs.getString("password"));
+        }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 
