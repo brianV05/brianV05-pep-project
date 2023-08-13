@@ -32,7 +32,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         //app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewRegisterHandler);
-        //app.post("/login", this::postUserLoginHandler);
+        app.post("/login", this::postUserLoginHandler);
         //app.post("/messages", this::postNewMessagesHandler);
         //app.get("/messages", this::getAllMessagesHandler);
        // app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
@@ -82,8 +82,8 @@ public class SocialMediaController {
         Account getAcc = serviceAccount.getAccount(account);
 
         if(getAcc != null){
-            context.status(200);
             context.json(account);
+            context.status(200);
         }else{
             context.status(401);
         }

@@ -6,8 +6,8 @@ import Model.Account;
 import Util.ConnectionUtil;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 
 public class AccountDAO {
@@ -96,17 +96,21 @@ public class AccountDAO {
 
         //create statement 
         String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
-        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+        
             ps.setString(1,account.getUsername());
             ps.setString(2,account.getPassword());
 
+           
+ 
         //execute query
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             return new Account(rs.getInt("account_id"),rs.getString("username"), rs.getString("password"));
         }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
