@@ -2,7 +2,10 @@ package Controller;
 
 //the controller will require the use of the Service layer and the Model layer
 import Model.Account;
+import Model.Message;
 import Service.ServiceAccount;
+import Service.ServiceMessage;
+
 //import DAO.AccountDAO;
 
 import java.sql.*;
