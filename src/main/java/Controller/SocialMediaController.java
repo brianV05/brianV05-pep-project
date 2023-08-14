@@ -78,7 +78,6 @@ public class SocialMediaController {
 
         ObjectMapper om = new ObjectMapper();
         Account checkAcc = om.readValue(context.body(), Account.class );
-        //getAccount need to implement a method in the service 
         Account getAcc = serviceAccount.getAccount(checkAcc.getUsername(), checkAcc.getPassword());
 
         if(getAcc != null){

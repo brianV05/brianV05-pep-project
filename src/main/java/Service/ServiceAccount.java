@@ -8,13 +8,15 @@ import DAO.AccountDAO;
 //import java.util.List;
 
 
+
+
 public class ServiceAccount {
 
     //Create the AccountDAO
     public AccountDAO accountDAO;
 
     //no-args constructor for creating a new AuthorService with a new AuthorDAO.
-    // (creating a DAO object for account implementation)
+    // (creating a DAO object for account implementation)creating a new item
     public ServiceAccount(){
         accountDAO = new AccountDAO();
     }
@@ -27,8 +29,6 @@ public class ServiceAccount {
     public ServiceAccount(AccountDAO accountDAO){
         this.accountDAO = accountDAO;
     }
-
-
 
     //finish writing in the doa class\
     //we need to check if the new account already exist or not 
@@ -54,15 +54,6 @@ public class ServiceAccount {
 //Verifying the account if it already exist in the database
     public Account getAccount(String username, String password){
         return accountDAO.verifyAccount(username,password);
-
-        /* 
-        if(accountDAO.verifyAccount(account) != null) {
-            return accountDAO.verifyAccount(account);
-        }else{
-            return null;
-
-        }
-        */
        
     }
 
