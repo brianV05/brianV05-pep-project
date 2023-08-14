@@ -51,14 +51,18 @@ public class ServiceAccount {
         } 
     }
     
+//Verifying the account if it already exist in the database
+    public Account getAccount(String username, String password){
+        return accountDAO.verifyAccount(username,password);
 
-    public Account getAccount(Account account){
+        /* 
         if(accountDAO.verifyAccount(account) != null) {
             return accountDAO.verifyAccount(account);
         }else{
             return null;
 
         }
+        */
        
     }
 

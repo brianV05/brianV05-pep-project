@@ -89,8 +89,8 @@ public class AccountDAO {
     }
 
 
-
-    public Account verifyAccount(Account account){
+//Back in our ServiceAccount, we used two parameters for the method; verifyAccount. we will do the same for this since we are calling it in our method
+    public Account verifyAccount(String username, String password){ //grab username and password from the front-end
         //make a connection
         Connection conn = ConnectionUtil.getConnection();
 
@@ -99,14 +99,12 @@ public class AccountDAO {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
         
-            ps.setString(1,account.getUsername());
-            ps.setString(2,account.getPassword());
+            ps.setString(1,username);
+            ps.setString(2,password);
 
-           
- 
         //execute query
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        if(rs.next()){
             return new Account(rs.getInt("account_id"),rs.getString("username"), rs.getString("password"));
         }
 

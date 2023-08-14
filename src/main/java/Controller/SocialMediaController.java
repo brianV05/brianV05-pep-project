@@ -74,15 +74,15 @@ public class SocialMediaController {
     }
 
 //Our API should be able to process User logins.
-    private void postUserLoginHandler(Context context){
+    private void postUserLoginHandler(Context context) throws JsonProcessingException{
 
-        Account account = context.bodyAsClass(Account.class);
-
-//getAccount need to implement a method in the service 
-        Account getAcc = serviceAccount.getAccount(account);
+        ObjectMapper om = new ObjectMapper();
+        Account checkAcc = om.readValue(context.body(), Account.class );
+        //getAccount need to implement a method in the service 
+        Account getAcc = serviceAccount.getAccount(checkAcc.getUsername(), checkAcc.getPassword());
 
         if(getAcc != null){
-            context.json(account);
+            context.json(om.writeValueAsString(getAcc));
             context.status(200);
         }else{
             context.status(401);
