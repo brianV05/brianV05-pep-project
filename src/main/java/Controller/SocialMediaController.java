@@ -9,6 +9,7 @@ import Service.ServiceMessage;
 //import DAO.AccountDAO;
 
 import java.sql.*;
+import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +31,7 @@ public class SocialMediaController {
      //initialize serviceAccount
      //AccountDAO accountDAO = new AccountDAO();
      ServiceAccount serviceAccount = new ServiceAccount();
+     ServiceMessage serviceMessage = new ServiceMessage();
 
     public Javalin startAPI() {
         Javalin app = Javalin.create();
@@ -37,7 +39,7 @@ public class SocialMediaController {
         app.post("/register", this::postNewRegisterHandler);
         app.post("/login", this::postUserLoginHandler);
         //app.post("/messages", this::postNewMessagesHandler);
-        //app.get("/messages", this::getAllMessagesHandler);
+        app.get("/messages", this::getAllMessagesHandler);
        // app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
         //app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
@@ -98,10 +100,23 @@ public class SocialMediaController {
     private void postNewMessagesHandler(Context context){
         
     }
+*/
+
+
+
 
     private void getAllMessagesHandler(Context context){
+        List<Message> messages = serviceMessage.getAllMessages();
+        context.json(messages);
         
     }
+
+
+
+
+
+
+/* 
 
     private void getAllMessageByIdHandler(Context context){
         

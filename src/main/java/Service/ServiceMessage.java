@@ -20,7 +20,7 @@ public class ServiceMessage {
 
 
     public List<Message> getAllMessages(){
-        return messageDAO
+        return messageDAO.retrieveAllMessages();
     }
     
 
