@@ -40,7 +40,7 @@ public class SocialMediaController {
         app.post("/login", this::postUserLoginHandler);
         //app.post("/messages", this::postNewMessagesHandler);
         app.get("/messages", this::getAllMessagesHandler);
-       // app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
+        app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
         //app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
         //app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
@@ -111,16 +111,20 @@ public class SocialMediaController {
         
     }
 
+    private void getAllMessageByIdHandler(Context context)throws JsonProcessingException{
+        int messageid = Integer.parseInt(context.pathParam("message_id"));  //storing the "message_id" from the message to the variable messageid
+        Message message = serviceMessage.getAllMessagesByID(messageid);          //we calling serviceMessage getAllMessagesByID method passing the parameter of messageid
 
+        if(message != null){                                                     //if message is not empty, create it. Else print status
+            context.json(message);
+        }else{
+            context.status(200);
+        }
 
-
-
-
-/* 
-
-    private void getAllMessageByIdHandler(Context context){
         
     }
+
+    /*
 
     private void deleteMessageByIdHandler(Context context){
         

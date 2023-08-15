@@ -22,6 +22,11 @@ public class ServiceMessage {
     public List<Message> getAllMessages(){
         return messageDAO.retrieveAllMessages();
     }
+
+    public Message getAllMessagesByID(int id){
+        return messageDAO.retrieveAllMessagesByid(id);
+
+    }
     
 
 
