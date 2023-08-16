@@ -1,10 +1,10 @@
 package Controller;
 
 //the controller will require the use of the Service layer and the Model layer
-import Model.Account;
-import Model.Message;
-import Service.ServiceAccount;
-import Service.ServiceMessage;
+import Model.Account;  //model
+import Model.Message;   //model
+import Service.ServiceAccount;  //service
+import Service.ServiceMessage;  //service 
 
 //import DAO.AccountDAO;
 
@@ -28,8 +28,9 @@ public class SocialMediaController {
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
 
-     //initialize serviceAccount
+     //initialize serviceAccount and sericeAccount to the Controller
      //AccountDAO accountDAO = new AccountDAO();
+
      ServiceAccount serviceAccount = new ServiceAccount();
      ServiceMessage serviceMessage = new ServiceMessage();
 
@@ -38,7 +39,7 @@ public class SocialMediaController {
         //app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewRegisterHandler);
         app.post("/login", this::postUserLoginHandler);
-        //app.post("/messages", this::postNewMessagesHandler);
+        app.post("/messages", this::postNewMessagesHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
@@ -78,6 +79,8 @@ public class SocialMediaController {
         }    
     }
 
+    
+
 //Our API should be able to process User logins.
     private void postUserLoginHandler(Context context) throws JsonProcessingException{
 
@@ -96,11 +99,25 @@ public class SocialMediaController {
 
 
 
-/* 
-    private void postNewMessagesHandler(Context context){
+
+
+  
+    private void postNewMessagesHandler(Context context) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        Message newMess = om.readValue(context.body(), Message.class);
+        Message addMess = serviceMessage.postNewMessage(newMess);
+
+        if(addMess != null){
+            context.json(om.writeValueAsString(addMess));
+            context.status(200);
+        }else{
+            context.status(400);
+        }
+
         
     }
-*/
+
+
 
 
 
@@ -123,22 +140,19 @@ public class SocialMediaController {
 
         
     }
-
     /*
-
-    private void deleteMessageByIdHandler(Context context){
-        
+    private void deleteMessageByIdHandler(Context context){     
     }
-    
     private void updateMessageByIdHandler(Context context){
         
     }
-
+  
     private void getAllMessageWrittenByParticularUserHandler(Context context){
+
         
     }
+  */
 
-*/
 
 
 }
