@@ -39,11 +39,11 @@ public class SocialMediaController {
         //app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewRegisterHandler);
         app.post("/login", this::postUserLoginHandler);
-        app.post("/messages", this::postNewMessagesHandler);
+        //app.post("/messages", this::postNewMessagesHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         //app.delete("/messaged/{message_id}", this::deleteMessageByIdHandler);
-        //app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
+        app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
         //app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
 
 
@@ -100,7 +100,7 @@ public class SocialMediaController {
 
 
 
-
+/* 
   
     private void postNewMessagesHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
@@ -116,7 +116,7 @@ public class SocialMediaController {
 
         
     }
-
+*/
 
 
 
@@ -140,13 +140,35 @@ public class SocialMediaController {
 
         
     }
-    /*
-    private void deleteMessageByIdHandler(Context context){     
+  /*
+    private void deleteMessageByIdHandler(Context context){   
+
     }
-    private void updateMessageByIdHandler(Context context){
-        
+*/
+
+
+
+    private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        Message message = om.readValue(context.body(), Message.class);
+        int id = Integer.parseInt(context.pathParam("message_id"));
+
+        Message update = serviceMessage.updateMessageByID(id, message);
+
+        if(update != null){
+            return context.json(message.writeValueAsString(update));
+
+        }else{
+            context.status(400);
+        }
+
     }
-  
+
+
+
+
+
+  /* 
     private void getAllMessageWrittenByParticularUserHandler(Context context){
 
         

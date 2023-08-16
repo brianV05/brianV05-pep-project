@@ -58,6 +58,13 @@ public class ServiceAccount {
     }
 
 
+    public Account getAccountById(int accountid){
+        return accountDAO.getAccountById(accountid);
+    }
+
+    
+
+
     
 
  
