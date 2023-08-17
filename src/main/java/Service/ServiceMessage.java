@@ -50,6 +50,34 @@ public class ServiceMessage {
 
     }
 
+    public Message deleteMessage(int messageid){
+        Message deleteMess = messageDAO.retrieveAllMessagesByid(messageid);
+
+        if(deleteMess != null){
+            boolean success = messageDAO.deleteMessageByID(messageid);
+            if(success){
+                return deleteMess;
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public Message updateMessageByID(int id, Message messages){
 
         Message existing = messageDAO.retrieveAllMessagesByid(id);
@@ -83,19 +111,7 @@ public class ServiceMessage {
 
 
     
-/* 
 
-    if(message != null && !message.trim().isEmpty()){
-        Message exitMessage = messageDAO.retrieveAllMessagesByid(id);
-        
-        if(exitMessage != null){
-            exitMessage.setMessage_text(message);
-            return messageDAO.updateMessage(exitMessage);
-        }
-    }
-    return null;
-    */
-  
     
 }
     
