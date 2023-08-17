@@ -61,6 +61,14 @@ public class ServiceMessage {
         
     }
 
+
+
+
+
+
+
+
+    
 /* 
 
     if(message != null && !message.trim().isEmpty()){

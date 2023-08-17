@@ -29,8 +29,6 @@ public class MessageDAO {
                 int generated_message_id = (int)rs.getLong(1);
                 return new Message(generated_message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
           
@@ -98,22 +96,15 @@ public class MessageDAO {
     public Message updateMessage(int id, String message){
         Connection conn = ConnectionUtil.getConnection();
         Message updateMess = retrieveAllMessagesByid(id);
-        //if(updateMess == null) return null;
+        if(updateMess == null) return null;
         Message updateMe = null;
-
-        
 
         try {
             String sql = "UPDATE Message SET posted_by = ?, message_text = ?, time_posted_epoch = ? WHERE message_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-           // ps.setString(1,message);
-            //ps.setInt(4, id);
-
+           
             ps.setString(2,message);
             ps.setInt(4,id);
-
-
-
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
