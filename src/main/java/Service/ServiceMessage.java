@@ -81,10 +81,10 @@ public class ServiceMessage {
     public Message updateMessageByID(int id, Message messages){
 
         Message existing = messageDAO.retrieveAllMessagesByid(id);
-        if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() > 255 || existing != null){
+        if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() < 255 || existing == null){
             return messageDAO.updateMessage(id, messages);
         }else{
-            return existing;
+            return null;
         }
 
       
