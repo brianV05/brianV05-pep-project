@@ -68,7 +68,6 @@ public class MessageDAO {
         return message;
     }
 
-
     public Message retrieveAllMessagesByid(int id){
         Connection conn = ConnectionUtil.getConnection();
         try {
@@ -84,8 +83,6 @@ public class MessageDAO {
                 rs.getLong("time_posted_epoch"));
                 return message;
             }
-
-
         } catch (SQLException e) {
            e.printStackTrace();
         }
