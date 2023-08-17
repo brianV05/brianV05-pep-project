@@ -50,21 +50,35 @@ public class ServiceMessage {
 
     }
 
-    public Message updateMessageByID(int id, Message message){
-        Message existMessage = messageDAO.updateMessage(id);
-
-        if(existMessage != null){
-            return messageDAO.updateMessage(id, existMessage);
-            
+    public Message updateMessageByID(int id, String message){
+       
+        if(message.length() == 0 || message.length() > 255){
+            return messageDAO.updateMessage(id, message);
         }else{
             return null;
-
         }
+      
         
     }
+
+/* 
+
+    if(message != null && !message.trim().isEmpty()){
+        Message exitMessage = messageDAO.retrieveAllMessagesByid(id);
+        
+        if(exitMessage != null){
+            exitMessage.setMessage_text(message);
+            return messageDAO.updateMessage(exitMessage);
+        }
+    }
+    return null;
+    */
+  
+    
+}
     
 
 
 
 
-}
+
