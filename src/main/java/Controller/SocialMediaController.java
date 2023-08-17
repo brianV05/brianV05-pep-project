@@ -149,30 +149,16 @@ public class SocialMediaController {
 
 
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
-        /* 
-        ObjectMapper om = new ObjectMapper();
-        Message message = om.readValue(context.body(), Message.class);
-
+       
+       // ObjectMapper om = new ObjectMapper();
+      //  Message message = om.readValue(context.body(), Message.class);
+        String mess = context.body();
         int id = Integer.parseInt(context.pathParam("message_id"));
-        Message update = serviceMessage.updateMessageByID(id, message);
-
-        if(update == null){
+        Message updatedMessage = serviceMessage.updateMessageByID(id, mess);
+        if(updatedMessage == null){
             context.status(400);
-            
-
         }else{
-            context.json(om.writeValueAsString(update));
-        }
-        */
-        
-
-        
-        String updatedText = context.body();
-        int getID = Integer.parseInt(context.pathParam("message_id"));
-        Message updatedMessage = serviceMessage.updateMessageByID(getID, updatedText);
-        if(updatedMessage != null){
             context.json(updatedMessage);
-        }else{
             context.status(400);
         }
         
@@ -208,6 +194,21 @@ public class SocialMediaController {
             context.json(om.writeValueAsString(getID));
         }
 */
+ /* 
+        ObjectMapper om = new ObjectMapper();
+        Message message = om.readValue(context.body(), Message.class);
+
+        int id = Integer.parseInt(context.pathParam("message_id"));
+        Message update = serviceMessage.updateMessageByID(id, message);
+
+        if(update == null){
+            context.status(400);
+            
+
+        }else{
+            context.json(om.writeValueAsString(update));
+        }
+        */
 
 
 
