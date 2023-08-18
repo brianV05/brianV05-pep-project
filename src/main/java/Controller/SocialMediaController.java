@@ -6,10 +6,11 @@ import Model.Message;   //model
 import Service.ServiceAccount;  //service
 import Service.ServiceMessage;  //service 
 
-
+import static org.mockito.ArgumentMatchers.contains;
 
 import java.sql.*;
 import java.util.List;
+import java.util.ArrayList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -194,8 +195,18 @@ public class SocialMediaController {
 
 
 
-//Our API should be able to retrieve all messages written by a particular user.
+//Our API should be able to retrieve all messages written by a particular user(account).
     private void getAllMessageWrittenByParticularUserHandler(Context context){
+
+        int userId = Integer.parseInt(context.pathParam("account_id"));
+        List<Message> MessagesFromUser = serviceMessage.getAllMessageBYUserId(userId);
+
+        if(!MessagesFromUser.isEmpty()){
+            context.status(200).json(MessagesFromUser);
+        }else{
+            context.status(200).json(new ArrayList<Message>());
+        }
+
 
         
     }

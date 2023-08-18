@@ -70,7 +70,9 @@ public class ServiceMessage {
     }
 
 
-    
+    public List<Message> getAllMessageBYUserId(int id){
+        return messageDAO.getUserID(id);
+    }
 
 
 
