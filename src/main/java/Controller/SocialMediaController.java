@@ -102,26 +102,34 @@ public class SocialMediaController {
 
  
   
-    private void postNewMessagesHandler(Context context) throws JsonProcessingException{
+    private void postNewMessagesHandler(Context context) {
         /* 
         ObjectMapper om = new ObjectMapper();
         Message newMess = om.readValue(context.body(), Message.class);
         */
         Message message = context.bodyAsClass(Message.class);
-        Account account = serviceAccount.getAccountById(message.getPosted_by());
+        Message creatMess = serviceMessage.postNewMessage(message);
+
+        Account postedByAccount = serviceAccount.getAccountById(message.getPosted_by());
 
 
-        if(account == null){
-            context.status(400);
+        if(postedByAccount == null){
+            context.status(400).json("");
+            return;
         }
 
         //validate the length of the text
-        if(message.getMessage_text().isEmpty() || message.getMessage_text().length() > 254){
-            context.status(400);
+        if(message.getMessage_text() == null || message.getMessage_text().trim().isEmpty() || message.getMessage_text().length() > 254){
+            context.status(400).json("");
+            return;
         }
 
         //we are creating the message is valid.
-        if()
+        if(creatMess != null){
+            context.status(200).json(creatMess);
+        }else{
+            context.status(400).json("");
+        }
        
         
     }

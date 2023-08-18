@@ -1,10 +1,8 @@
 package Service;
 
 import Model.Message;
-import Model.Account;
-import DAO.AccountDAO;
 import DAO.MessageDAO;
-import Service.ServiceAccount;
+
 
 
 
@@ -16,20 +14,13 @@ public class ServiceMessage {
 
     //create the MessageDAO in service
     public MessageDAO messageDAO;
-    //public AccountDAO accountDAO;
+  
 
     public ServiceMessage(){
         messageDAO = new MessageDAO();
-        //accountDAO = new AccountDAO();
+        
     }
-/* 
-    public ServiceMessage(MessageDAO messageDAO, AccountDAO accountDAO){
-        this.messageDAO = messageDAO;
-        this.accountDAO = accountDAO;
-    }
-*/
 
- 
     public Message postNewMessage(Message message){
         return messageDAO.inserMessage(message);
         /* 

@@ -13,9 +13,8 @@ public class MessageDAO {
 
     public Message inserMessage(Message message){
         Connection conn = ConnectionUtil.getConnection();
-
-        String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch VALUES(?,?,?))";
         try {
+            String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1,message.getPosted_by());
@@ -31,22 +30,6 @@ public class MessageDAO {
                     return message;
                 }
             }
-
-
-
-
-
-
-/* 
-
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-
-            while(rs.next()){
-                int generated_message_id = (int)rs.getLong(1);
-                return new Message(generated_message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
-            }
-            */
         } catch (SQLException e) {
             e.printStackTrace();
           
