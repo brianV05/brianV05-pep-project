@@ -92,11 +92,15 @@ public class SocialMediaController {
     
     //Our API should be able to process the creation of new messages.
     private void postNewMessagesHandler(Context context) {
+        // Extract the message from the request body and convert it to a Message object
         Message message = context.bodyAsClass(Message.class);
+        // Call a service method to post the new message and store the result
         Message creatMess = serviceMessage.postNewMessage(message);
 
+        // Retrieve the account of the user who posted the message
         Account postedByAccount = serviceAccount.getAccountById(message.getPosted_by());
 
+        // Check if the account of the user who posted the message exists
         if(postedByAccount == null){
             context.status(400).json("");
             return;
@@ -108,7 +112,7 @@ public class SocialMediaController {
             return;
         }
 
-        //we are creating the message is valid.
+         // Check if the message was successfully created
         if(creatMess != null){
             context.status(200).json(creatMess);
         }else{
@@ -196,19 +200,19 @@ public class SocialMediaController {
 
 
 //Our API should be able to retrieve all messages written by a particular user(account).
-    private void getAllMessageWrittenByParticularUserHandler(Context context){
+    private void getAllMessageWrittenByParticularUserHandler(Context context){              
 
-        int userId = Integer.parseInt(context.pathParam("account_id"));
+        int userId = Integer.parseInt(context.pathParam("account_id"));                         // Extract user ID from the URL path parameter(ACCOUNT)
+
+        // Call a service method to get all messages written by the specified user
         List<Message> MessagesFromUser = serviceMessage.getAllMessageBYUserId(userId);
 
+        // Check if the list of messages from the user is not empty
         if(!MessagesFromUser.isEmpty()){
-            context.status(200).json(MessagesFromUser);
+            context.status(200).json(MessagesFromUser);                 // Return a 200 OK response with the list of messages
         }else{
-            context.status(200).json(new ArrayList<Message>());
+            context.status(200).json(new ArrayList<Message>());         // Return an empty list with a 200 OK response
         }
-
-
-        
     }
   
 

@@ -12,22 +12,28 @@ import java.util.List;
 public class MessageDAO {
 
     public Message inserMessage(Message message){
+        //obtains a database connection
         Connection conn = ConnectionUtil.getConnection();
+
         try {
             String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES(?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);                     //The PreparedStatement is set up to return the generated keys (typically auto-generated IDs) after the insert is executed.
 
+            // Set the values for the placeholders in the SQL statement
             ps.setInt(1,message.getPosted_by());
             ps.setString(2,message.getMessage_text());
             ps.setLong(3,message.getTime_posted_epoch());
 
+            // Execute the SQL statement and get the number of rows affected
             int rowAffected = ps.executeUpdate();
-            if(rowAffected == 1){
+
+            // If one row was affected (insert was successful
+            if(rowAffected == 1){                               //the insertion was successful (one row affected), it retrieves the generated keys using getGeneratedKeys()
                 ResultSet rs = ps.getGeneratedKeys();
-                if(rs.next()){
-                    int messageid = rs.getInt(1);
-                    message.setMessage_id(messageid);
-                    return message;
+                if(rs.next()){                                  // contain a next row, return message id
+                    int messageid = rs.getInt(1);     // Get the generated message ID from the result set
+                    message.setMessage_id(messageid);             // Set the generated message ID in the message object
+                    return message;                                // Return the message object with the updated ID
                 }
             }
         } catch (SQLException e) {
@@ -160,22 +166,24 @@ public class MessageDAO {
 
 
     public List<Message> getUserID(int id){
-        Connection conn = ConnectionUtil.getConnection();
+        Connection conn = ConnectionUtil.getConnection();                               // Get a database connection
         try {
-            List<Message> listMessages = new ArrayList<>();
+            List<Message> listMessages = new ArrayList<>();                             // Create a list to store the fetched messages  
             String sql = "SELECT * FROM message WHERE posted_by = ?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();                                           // Execute the SQL query and get the result set
 
-            while(rs.next()){
 
+            while(rs.next()){                                                           //// Loop through the result set to process each retrieved message, 'rs' contains the retrieved rows from the database.
                 int messageId = rs.getInt("message_id");
                 int postBy = rs.getInt("posted_by");
                 String messageText = rs.getString("message_text");
                 Long timePostedEpoch = rs.getLong("time_posted_epoch");
+
+                // Create a new Message object with retrieved data and add it to the list
                 Message message = new Message(messageId, postBy, messageText, timePostedEpoch);
                 listMessages.add(message);
                 
