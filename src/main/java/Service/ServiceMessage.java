@@ -29,16 +29,19 @@ public class ServiceMessage {
     }
 */
 
-/* 
+ 
     public Message postNewMessage(Message message){
+        return messageDAO.inserMessage(message);
+        /* 
         if(message.getMessage_text().isEmpty() || message.getMessage_text().length()< 255 || message.getPosted_by() != accountDAO.getAccountById(message.getPosted_by())){
             return null;
         }else{
             return messageDAO.inserMessage(message);
 
         }
+        */
     }
-  //*/  
+  
 
 
     public List<Message> getAllMessages(){
@@ -81,7 +84,7 @@ public class ServiceMessage {
     public Message updateMessageByID(int id, Message messages){
 
         Message existing = messageDAO.retrieveAllMessagesByid(id);                                               
-        if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() < 255 || existing == null){
+        if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() > 254 || existing == null){
             return messageDAO.updateMessage(id, messages);
         }else{
             return null;

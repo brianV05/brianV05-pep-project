@@ -39,7 +39,7 @@ public class SocialMediaController {
         //app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewRegisterHandler);
         app.post("/login", this::postUserLoginHandler);
-        //app.post("/messages", this::postNewMessagesHandler);
+        app.post("/messages", this::postNewMessagesHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
@@ -100,23 +100,32 @@ public class SocialMediaController {
 
 
 
-/* 
+ 
   
     private void postNewMessagesHandler(Context context) throws JsonProcessingException{
+        /* 
         ObjectMapper om = new ObjectMapper();
         Message newMess = om.readValue(context.body(), Message.class);
-        Message addMess = serviceMessage.postNewMessage(newMess);
+        */
+        Message message = context.bodyAsClass(Message.class);
+        Account account = serviceAccount.getAccountById(message.getPosted_by());
 
-        if(addMess != null){
-            context.json(om.writeValueAsString(addMess));
-            context.status(200);
-        }else{
+
+        if(account == null){
             context.status(400);
         }
 
+        //validate the length of the text
+        if(message.getMessage_text().isEmpty() || message.getMessage_text().length() > 254){
+            context.status(400);
+        }
+
+        //we are creating the message is valid.
+        if()
+       
         
     }
-*/
+
 
     private void getAllMessagesHandler(Context context){
         List<Message> messages = serviceMessage.getAllMessages();

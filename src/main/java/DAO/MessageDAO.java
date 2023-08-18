@@ -22,6 +22,23 @@ public class MessageDAO {
             ps.setString(2,message.getMessage_text());
             ps.setLong(3,message.getTime_posted_epoch());
 
+            int rowAffected = ps.executeUpdate();
+            if(rowAffected == 1){
+                ResultSet rs = ps.getGeneratedKeys();
+                if(rs.next()){
+                    int messageid = rs.getInt(1);
+                    message.setMessage_id(messageid);
+                    return message;
+                }
+            }
+
+
+
+
+
+
+/* 
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
@@ -29,6 +46,7 @@ public class MessageDAO {
                 int generated_message_id = (int)rs.getLong(1);
                 return new Message(generated_message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
             }
+            */
         } catch (SQLException e) {
             e.printStackTrace();
           
