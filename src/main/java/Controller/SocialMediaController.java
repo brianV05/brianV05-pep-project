@@ -146,13 +146,21 @@ public class SocialMediaController {
 
   
     private void deleteMessageByIdHandler(Context context){  
+        //This line extracts the value of a path parameter named "message_id" from the context.body() and converts into Integer
+        //Path parameters are typically used to pass dynamic values in a URL, such as /messages/{message_id}.
         int messageId = Integer.parseInt(context.pathParam("message_id"));
 
+        //This method seems to handle the actual deletion of the message based on its ID. 
         Message delMessage = serviceMessage.deleteMessage(messageId);
 
+        // If the delMessage is not null, meaning the deletion was successful 
+        // and a message was returned, the code within this block will execute. 
+        // the deleted message in JSON format using the context.json(delMessage) line.
         if(delMessage != null){
             context.json(delMessage);
         }else{
+            
+            //indicating that the deletion didn't yield a message 
             context.status(200);
         }
         

@@ -90,19 +90,20 @@ public class MessageDAO {
     }
 
     public boolean deleteMessageByID(int messageID){
+        //establishes a database connection
         Connection conn = ConnectionUtil.getConnection();
 
         try {
             String sql = "DELETE FROM Message WHERE message_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, messageID);
+            PreparedStatement ps = conn.prepareStatement(sql);                      // Prepared statements are used to execute SQL queries with parameters.
+            ps.setInt(1, messageID);                                 //setting the value of the first parameter
 
             int rowDeleted = ps.executeUpdate();
 
-            if(rowDeleted == 0){
+            if(rowDeleted == 0){                                                    //If no rows were deleted (meaning there was no message with the given ID in the database)
                 return false;
-            }else{
-                return true;
+            }else{  
+                return true;                                                        //If one or more rows were deleted, indicating a successful deletion, the method returns true.
             }
         } catch (SQLException e) {
             e.printStackTrace();

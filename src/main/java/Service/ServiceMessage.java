@@ -51,15 +51,15 @@ public class ServiceMessage {
     }
 
     public Message deleteMessage(int messageid){
-        Message deleteMess = messageDAO.retrieveAllMessagesByid(messageid);
+        Message deleteMess = messageDAO.retrieveAllMessagesByid(messageid);                 //retrieves the message with the specified messageid
 
-        if(deleteMess != null){
-            boolean success = messageDAO.deleteMessageByID(messageid);
-            if(success){
-                return deleteMess;
+        if(deleteMess != null){                                                             // If a message was successfully retrieved with the given messageid
+            boolean success = messageDAO.deleteMessageByID(messageid);                      // handle the actual deletion of the message. The result of this deletion operation is stored in the success variable.
+            if(success){                                                                    // If the deletion was successful                                                              
+                return deleteMess;                                                          // This line returns the deleted message that was stored in the deleteMess variable. 
             }
         }
-        return null;
+        return null;                                                                        //  the deletion operation was not successful
     }
 
 
@@ -77,10 +77,10 @@ public class ServiceMessage {
 
 
 
-
+//Message messages, that represents the new version of the message.
     public Message updateMessageByID(int id, Message messages){
 
-        Message existing = messageDAO.retrieveAllMessagesByid(id);
+        Message existing = messageDAO.retrieveAllMessagesByid(id);                                               
         if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() < 255 || existing == null){
             return messageDAO.updateMessage(id, messages);
         }else{
