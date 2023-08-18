@@ -35,11 +35,7 @@ public class MessageDAO {
           
         }
         return null;
-
     }
-
-
-
 
 
     public List<Message> retrieveAllMessages(){
@@ -116,17 +112,6 @@ public class MessageDAO {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public Message updateMessage(int id, Message message){
         Connection conn = ConnectionUtil.getConnection();
         try {
@@ -171,13 +156,10 @@ public class MessageDAO {
 
         */
 
-
-
-
-
-
-
     }
+
+
+    
 
 
 

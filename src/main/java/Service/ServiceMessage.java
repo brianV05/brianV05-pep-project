@@ -3,38 +3,21 @@ package Service;
 import Model.Message;
 import DAO.MessageDAO;
 
-
-
-
 import java.util.List;
-
-
 
 public class ServiceMessage {
 
     //create the MessageDAO in service
     public MessageDAO messageDAO;
   
-
     public ServiceMessage(){
-        messageDAO = new MessageDAO();
-        
+        messageDAO = new MessageDAO(); 
     }
 
     public Message postNewMessage(Message message){
         return messageDAO.inserMessage(message);
-        /* 
-        if(message.getMessage_text().isEmpty() || message.getMessage_text().length()< 255 || message.getPosted_by() != accountDAO.getAccountById(message.getPosted_by())){
-            return null;
-        }else{
-            return messageDAO.inserMessage(message);
-
-        }
-        */
     }
   
-
-
     public List<Message> getAllMessages(){
         return messageDAO.retrieveAllMessages();
     }
@@ -55,17 +38,6 @@ public class ServiceMessage {
         }
         return null;                                                                        //  the deletion operation was not successful
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -97,6 +69,8 @@ public class ServiceMessage {
         
     }
 
+
+    
 
 
 

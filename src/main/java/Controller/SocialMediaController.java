@@ -6,7 +6,7 @@ import Model.Message;   //model
 import Service.ServiceAccount;  //service
 import Service.ServiceMessage;  //service 
 
-//import DAO.AccountDAO;
+
 
 import java.sql.*;
 import java.util.List;
@@ -28,9 +28,6 @@ public class SocialMediaController {
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
 
-     //initialize serviceAccount and sericeAccount to the Controller
-     //AccountDAO accountDAO = new AccountDAO();
-
      ServiceAccount serviceAccount = new ServiceAccount();
      ServiceMessage serviceMessage = new ServiceMessage();
 
@@ -44,9 +41,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getAllMessageByIdHandler);
         app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
         app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
-        //app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
-
-
+        app.get("/accounts/{account_id}/messages", this::getAllMessageWrittenByParticularUserHandler);
         return app;
     }
 
@@ -60,9 +55,6 @@ public class SocialMediaController {
 
 // Our API should be able to process new User registrations.
     private void postNewRegisterHandler(Context context) throws JsonProcessingException{
-        //ObjectMapper om = new ObjectMapper();
-        //Account acc = om.readValue(context.body(), Account.class);
-
         // using Javalin, use this way
         //username and password from user input / website
         Account account = context.bodyAsClass(Account.class);  
@@ -80,7 +72,6 @@ public class SocialMediaController {
     }
 
     
-
 //Our API should be able to process User logins.
     private void postUserLoginHandler(Context context) throws JsonProcessingException{
 
@@ -97,21 +88,13 @@ public class SocialMediaController {
         
     }
 
-
-
-
- 
-  
+    
+    //Our API should be able to process the creation of new messages.
     private void postNewMessagesHandler(Context context) {
-        /* 
-        ObjectMapper om = new ObjectMapper();
-        Message newMess = om.readValue(context.body(), Message.class);
-        */
         Message message = context.bodyAsClass(Message.class);
         Message creatMess = serviceMessage.postNewMessage(message);
 
         Account postedByAccount = serviceAccount.getAccountById(message.getPosted_by());
-
 
         if(postedByAccount == null){
             context.status(400).json("");
@@ -130,17 +113,16 @@ public class SocialMediaController {
         }else{
             context.status(400).json("");
         }
-       
-        
     }
 
-
+//Our API should be able to retrieve all messages.
     private void getAllMessagesHandler(Context context){
         List<Message> messages = serviceMessage.getAllMessages();
         context.json(messages);
         
     }
 
+//Our API should be able to retrieve a message by its ID.
     private void getAllMessageByIdHandler(Context context)throws JsonProcessingException{
         int messageid = Integer.parseInt(context.pathParam("message_id"));  //storing the "message_id" from the message to the variable messageid
         Message message = serviceMessage.getAllMessagesByID(messageid);          //we calling serviceMessage getAllMessagesByID method passing the parameter of messageid
@@ -150,18 +132,9 @@ public class SocialMediaController {
         }else{
             context.status(200);
         }
-
-        
     }
 
-
-
-
-
-
-
-
-  
+//Our API should be able to delete a message identified by a message ID.
     private void deleteMessageByIdHandler(Context context){  
         //This line extracts the value of a path parameter named "message_id" from the context.body() and converts into Integer
         //Path parameters are typically used to pass dynamic values in a URL, such as /messages/{message_id}.
@@ -180,27 +153,10 @@ public class SocialMediaController {
             //indicating that the deletion didn't yield a message 
             context.status(200);
         }
-        
-
-
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Our API should be able to update a message text identified by a message ID.
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
-   
-        
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(context.body(), Message.class);
         int id = Integer.parseInt(context.pathParam("message_id"));
@@ -214,14 +170,6 @@ public class SocialMediaController {
         }
 
     }
-
-
-
-
-
-
-
-
      /*       
         //ObjectMapper om = new ObjectMapper();
         //Message message = om.readValue(context.body(), Message.class);
@@ -246,20 +194,12 @@ public class SocialMediaController {
 
 
 
-
-
-
-
-
-
-
-
-  /* 
+//Our API should be able to retrieve all messages written by a particular user.
     private void getAllMessageWrittenByParticularUserHandler(Context context){
 
         
     }
-  */
+  
 
 
 
