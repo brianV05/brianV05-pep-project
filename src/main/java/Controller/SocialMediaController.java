@@ -171,7 +171,7 @@ public class SocialMediaController {
 
         if(updatedMessage != null){
             context.json(mapper.writeValueAsString(updatedMessage));
-            context.status(400);
+            context.status(200);
             //System.out.println(nMessage);
         }else{
             context.status(400);

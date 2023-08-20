@@ -119,12 +119,12 @@ public class MessageDAO {
 
 
 
-    public void updateMessage(int id, Message message){
+    public Message updateMessage(int id, String message){
         Connection conn = ConnectionUtil.getConnection();
         try {
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,message.getMessage_text());
+            ps.setString(1,message);
             ps.setInt(2,id);
             ps.executeUpdate();
            
@@ -132,7 +132,7 @@ public class MessageDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        return null;
     
     }
 
@@ -200,12 +200,12 @@ public class MessageDAO {
 
 
 
-
+/*
 
     public Message messageid(int id){
         Connection conn = ConnectionUtil.getConnection();
         try {
-            String sql = "SELECT * FROM Message WHERE message_id = ?";
+            String sql = "SELECT * FROM Message message_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
@@ -222,6 +222,7 @@ public class MessageDAO {
         }
         return null;
     }
+    */
 
 
 
