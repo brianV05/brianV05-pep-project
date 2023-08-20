@@ -45,6 +45,7 @@ public class MessageDAO {
 
 
     public List<Message> retrieveAllMessages(){
+        //based on the labs week 5 and week 6
         //creatint the connection to the database 
         Connection conn = ConnectionUtil.getConnection();
         
@@ -118,10 +119,10 @@ public class MessageDAO {
 
 
 
-    public Message updateMessage(int id, Message message){
+    public void updateMessage(int id, Message message){
         Connection conn = ConnectionUtil.getConnection();
         try {
-            String sql = "UPDATE Message SET message_text = ? WHERE message_id = ?";
+            String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,message.getMessage_text());
             ps.setInt(2,id);
@@ -131,9 +132,9 @@ public class MessageDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-
-
+        
+    
+    }
 
         /* 
         Connection conn = ConnectionUtil.getConnection();
@@ -162,7 +163,7 @@ public class MessageDAO {
 
         */
 
-    }
+    
 
 
     public List<Message> getUserID(int id){

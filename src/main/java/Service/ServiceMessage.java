@@ -45,26 +45,28 @@ public class ServiceMessage {
 
 //Message messages, that represents the new version of the message.
     public Message updateMessageByID(int id, Message messages){
-
+/* 
         Message existing = messageDAO.retrieveAllMessagesByid(id);                                               
         if(messages.getMessage_text().isEmpty()|| messages.getMessage_text().length() > 254 || existing == null){
             return messageDAO.updateMessage(id, messages);
         }else{
             return null;
         }
-
-      
-
+*/
         
         //this.messageDAO.updateMessage(id, existing);
         //return existing;
-        /* 
-        if(messages.length() == 0 || messages.length() > 255  ){
-            return messageDAO.updateMessage(id, messages);
-        }else{
+
+        if(messages.getMessage_text().isEmpty() || messages.getMessage_text().length() > 254 || messageDAO.retrieveAllMessagesByid(id)== null){
             return null;
+        }else{
+            
+            return messageDAO.retrieveAllMessagesByid(id);
+
         }
-        */
+        
+        
+        
       
         
     }
