@@ -166,14 +166,14 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(context.body(), Message.class);
         int id = Integer.parseInt(context.pathParam("message_id"));
-        String nMessage = context.formParam("message_text");
+        //String nMessage = context.formParam("message_text");
         Message updatedMessage = serviceMessage.updateMessageByID(id, message);
 
         if(updatedMessage != null){
             context.json(mapper.writeValueAsString(updatedMessage));
             context.status(400);
             //System.out.println(nMessage);
-        }if(updatedMessage == null){
+        }else{
             context.status(400);
         }
 

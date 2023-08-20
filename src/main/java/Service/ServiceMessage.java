@@ -57,11 +57,11 @@ public class ServiceMessage {
         //this.messageDAO.updateMessage(id, existing);
         //return existing;
 
-        if(messages.getMessage_text().isEmpty() || messages.getMessage_text().length() > 254 || messageDAO.retrieveAllMessagesByid(id)== null){
+        if(messages.getMessage_text().isEmpty() || messages.getMessage_text().length() >= 255 || messageDAO.messageid(id)== null){
             return null;
         }else{
-            
-            return messageDAO.retrieveAllMessagesByid(id);
+            this.messageDAO.updateMessage(id, messages.getMessage_text());
+            return messageDAO.messageid(id);
 
         }
         
