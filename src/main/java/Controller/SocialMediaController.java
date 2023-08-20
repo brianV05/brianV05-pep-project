@@ -6,8 +6,6 @@ import Model.Message;   //model
 import Service.ServiceAccount;  //service
 import Service.ServiceMessage;  //service 
 
-import static org.mockito.ArgumentMatchers.contains;
-
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -163,43 +161,19 @@ public class SocialMediaController {
 //Our API should be able to update a message text identified by a message ID.
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
 
-        ObjectMapper mapper = new ObjectMapper();
-        Message message = mapper.readValue(context.body(), Message.class);
-        int id = Integer.parseInt(context.pathParam("message_id"));
-        //String nMessage = context.formParam("message_text");
-        Message updatedMessage = serviceMessage.updateMessageByID(id, message);
+        ObjectMapper mapper = new ObjectMapper();                                                       //
+        Message message = mapper.readValue(context.body(), Message.class);                    // reading request body from JSON  -> Java object of the Message class
+        int id = Integer.parseInt(context.pathParam("message_id"));                                // extracting message id, then converts into an int
+        Message updatedMessage = serviceMessage.updateMessageByID(id, message);                         // method is called to update the message with the provided ID                  
 
         if(updatedMessage != null){
             context.json(mapper.writeValueAsString(updatedMessage));
             context.status(200);
-            //System.out.println(nMessage);
         }else{
             context.status(400);
         }
 
     }
-     /*       
-        //ObjectMapper om = new ObjectMapper();
-        //Message message = om.readValue(context.body(), Message.class);
-
-        String mess = context.body();
-        int id = Integer.parseInt(context.pathParam("message_id"));
-        Message updatedMessage = serviceMessage.updateMessageByID(id, mess);
-        if(updatedMessage == null){
-            context.status(400);
-        }else{
-            context.json(updatedMessage);
-            context.status(400);
-        }
- */    
-
-
-
-
-
-
-
-
 
 
 //Our API should be able to retrieve all messages written by a particular user(account).
@@ -217,8 +191,5 @@ public class SocialMediaController {
             context.status(200).json(new ArrayList<Message>());         // Return an empty list with a 200 OK response
         }
     }
-  
-
-
 
 }

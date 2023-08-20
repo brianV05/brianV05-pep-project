@@ -118,7 +118,6 @@ public class MessageDAO {
     }
 
 
-
     public Message updateMessage(int id, String message){
         Connection conn = ConnectionUtil.getConnection();
         try {
@@ -128,43 +127,11 @@ public class MessageDAO {
             ps.setInt(2,id);
             ps.executeUpdate();
            
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-    
     }
-
-        /* 
-        Connection conn = ConnectionUtil.getConnection();
-        Message updateMess = retrieveAllMessagesByid(id);
-        if(updateMess == null) return null;
-       // Message updateMe = null;
-
-        try {
-            String sql = "UPDATE Message SET message_text = ? WHERE message_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-           
-            ps.setString(1,message);
-            ps.setInt(2,id);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()){
-                Message messa = new Message(rs.getInt("message_id"),rs.getInt("posted_by"), rs.getString("message_text"),rs.getLong("time_posted_epoch"));
-                return messa;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-        */
-
-    
-
 
     public List<Message> getUserID(int id){
         Connection conn = ConnectionUtil.getConnection();                               // Get a database connection
@@ -197,40 +164,4 @@ public class MessageDAO {
         return new ArrayList<>();
        
     }
-
-
-
-/*
-
-    public Message messageid(int id){
-        Connection conn = ConnectionUtil.getConnection();
-        try {
-            String sql = "SELECT * FROM Message message_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()){
-                Message message = new Message(rs.getInt("message_id"),
-                rs.getInt("posted_by"), 
-                rs.getString("message_text"),
-                rs.getLong("time_posted_epoch"));
-                return message;
-            }
-        } catch (SQLException e) {
-           e.printStackTrace();
-        }
-        return null;
-    }
-    */
-
-
-
-
-
-
-
-
-
-    
 }

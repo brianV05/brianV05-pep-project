@@ -46,34 +46,19 @@ public class ServiceMessage {
 //Message messages, that represents the new version of the message.
     public Message updateMessageByID(int id, Message messages){
 
+        // f the message_text in the messages object is blank || f the length of the message_text is greater than or equal to 255 characters || If there is no message with the specified id found in the data store
         if(messages.getMessage_text().isBlank() || messages.getMessage_text().length() >= 255 || messageDAO.retrieveAllMessagesByid(id)== null){
             return null;
         }else{
-            this.messageDAO.updateMessage(id, messages.getMessage_text());
-            return messageDAO.retrieveAllMessagesByid(id);
-
+            this.messageDAO.updateMessage(id, messages.getMessage_text());                      // it update the message text associated with the given id.
+            return messageDAO.retrieveAllMessagesByid(id);                                      // After updating the message text, it retrieve the updated message from the data base.
         }
-        
-        
-        
-      
-        
     }
 
 
     public List<Message> getAllMessageBYUserId(int id){
         return messageDAO.getUserID(id);
-    }
-
-
-
-
-
-
-
-    
-
-    
+    }    
 }
     
 
