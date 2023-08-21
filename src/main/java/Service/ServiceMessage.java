@@ -54,6 +54,7 @@ public class ServiceMessage {
             return messageDAO.retrieveAllMessagesByid(id);                                      // After updating the message text, it retrieve the updated message from the data base.
         }
     }
+    
 
 
     public List<Message> getAllMessageBYUserId(int id){
